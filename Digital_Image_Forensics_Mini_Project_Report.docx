@@ -1,1 +1,1 @@
-The editable report is provided as a downloadable file from the chat. Binary DOCX uploads are not supported by the text-file GitHub action used here; add the report to this repository from your computer if you want the Word document stored alongside the source.
+NOTE: This repository's GitHub text-file upload action cannot transfer binary DOCX files. Download the editable report from the ChatGPT conversation, then upload the .docx through GitHub's web interface if you want it stored in this repository.
