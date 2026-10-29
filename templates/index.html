@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Forensics Lab</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">IF</div>
+    <div><p class="eyebrow">DIGITAL EVIDENCE ANALYZER</p><h1>Image Forensics Lab</h1></div>
+    <span class="local-pill">Local analysis</span>
+  </header>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow accent">PRELIMINARY IMAGE EXAMINATION</p>
+        <h2>Examine an image.<br><span>Understand its traces.</span></h2>
+        <p>Review image metadata, calculate a SHA-256 file hash, run basic file checks, and generate an ELA-style visualization for JPEG files.</p>
+      </div>
+      <div class="hero-icon" aria-hidden="true">⌕</div>
+    </section>
+    {% if error %}<div class="alert" role="alert">{{ error }}</div>{% endif %}
+    <section class="upload-card">
+      <div class="section-heading"><div><p class="eyebrow">STEP 01</p><h3>Upload an image</h3></div><span class="file-limit">Maximum 12 MB</span></div>
+      <form action="{{ url_for('analyze') }}" method="post" enctype="multipart/form-data">
+        <label class="dropzone" for="image">
+          <span class="upload-symbol">↑</span><strong id="file-label">Choose an image to analyze</strong>
+          <span>JPG · JPEG · PNG · TIFF · BMP · WEBP</span>
+          <input id="image" name="image" type="file" accept=".jpg,.jpeg,.png,.tif,.tiff,.bmp,.webp" required>
+        </label>
+        <button type="submit" class="primary-button">Analyze image <span>→</span></button>
+      </form>
+      <p class="privacy-note"><span>●</span> Files are processed by this local application. Do not expose the development server publicly.</p>
+    </section>
+    <section class="feature-grid">
+      <article class="feature-card"><span class="feature-icon">▤</span><h3>Metadata</h3><p>Read dimensions, format, color mode, and available EXIF fields.</p></article>
+      <article class="feature-card"><span class="feature-icon">◉</span><h3>ELA visualization</h3><p>Inspect JPEG recompression differences as a screening aid.</p></article>
+      <article class="feature-card"><span class="feature-icon">#</span><h3>SHA-256 hash</h3><p>Record a repeatable digest of the exact uploaded file.</p></article>
+      <article class="feature-card"><span class="feature-icon">▧</span><h3>PDF report</h3><p>Export file details, findings, metadata, and limitations.</p></article>
+    </section>
+    <aside class="notice"><strong>Forensic caution</strong><p>These checks do not prove an image is genuine or manipulated. Metadata can be changed, ELA can be affected by normal compression, and a hash only identifies the file bytes. Treat findings as preliminary indicators.</p></aside>
+  </main>
+  <footer>Image Forensics Lab · Student mini-project prototype</footer>
+  <script>
+    const input = document.getElementById('image');
+    const label = document.getElementById('file-label');
+    input.addEventListener('change', () => { label.textContent = input.files.length ? input.files[0].name : 'Choose an image to analyze'; });
+  </script>
+</body>
+</html>
